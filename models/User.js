@@ -1,3 +1,5 @@
+const Department = require("./Department");
+
 
 module.exports = (Sequelize, DataTypes) => {
     const User = Sequelize.define("User", {
@@ -18,8 +20,18 @@ module.exports = (Sequelize, DataTypes) => {
         lastname : {
             type:  DataTypes.STRING,
             allowNull: false,
+          },
+        department_id: {
+            type:  DataTypes.INTEGER,
           }
     })
 
+    User.associate = (models) => {
+        User.belongsTo(models.Department,{
+            foreignKey: 'department_id'
+          });
+    }
+
+   
     return User;
 }
