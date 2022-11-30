@@ -1,6 +1,5 @@
 const Department = require("./Department");
 
-
 module.exports = (Sequelize, DataTypes) => {
     const User = Sequelize.define("User", {
         firstName : {

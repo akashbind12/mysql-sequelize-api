@@ -1,6 +1,6 @@
 const express = require("express")
 const app = express();
-const { User , Department, Post, Tag, post_tag } = require("./models");
+const { User , Department, Post, Tag} = require("./models");
 const db = require("./models");
 const { Op } = require("sequelize");
 
@@ -139,20 +139,24 @@ app.post("/posts", async (req,res) => {
             "content" : req.body.content,
             "user_id" : req.body.user_id,
         }) 
+        
+        let alltags = req.body.tags
+        
+        alltags.map(async (t) => {
+            console.log(t)
 
-        // if(post){
-        //     try{
-        //         let postTag = await post_tag.create({
-        //             "postId" : post.id,
-        //             "tagId" : 2,
-        //         }) 
-        //         return res.send({res : {post,postTag }})
-        //     }catch{
-        //         return res.send({err : err})
-        //     }
-        //  }
-         
-
+            const tag = await Tag.findOne({
+                where : {name : t}
+            })
+            console.log("tag",tag)
+            if(tag){
+                await post.addTag(tag);
+            }else{
+                const tag1 = await Tag.create({ name: t } );
+                await post.addTag(tag1);
+            }     
+        })
+     
         return res.send({res : post})
    }catch(err) {
         return res.send({err : err})

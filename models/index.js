@@ -36,29 +36,4 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 
-// Posts.belongsToMany(tags, { through: 'Post_tag' });
-// tags.belongsToMany(posts, { through: 'Post_tag' });
-
-
-// //all post with tags 
-// var manyTomany = async (req,res)=> {
-//   let data = await posts.findAll({
-//     include: [{
-//       model: tags
-//     }]
-//   })
-//   res.status(200).json(data)
-// }
-
-// ///all tags with post
-// var manyTomany = async (req,res)=> {
-//   let data = await tags.findAll({
-//     include: [{
-//       model: posts
-//     }]
-//   })
-//   res.status(200).json(data)
-// }
-
-
 module.exports = db;
